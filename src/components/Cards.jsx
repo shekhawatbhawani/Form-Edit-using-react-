@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
-import { IoIosHeartEmpty } from "react-icons/io";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
-import { FaDeleteLeft } from "react-icons/fa6";
+import { FaDeleteLeft, FaHeart } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { IoCall } from "react-icons/io5";
 import { SiJsonwebtokens } from "react-icons/si";
@@ -10,12 +9,20 @@ import { useForm } from "react-hook-form";
 
 const Cards = (props) => {
     let { name, email, phone, web } = props;
+    let [formName ,setName] = useState(name)
+    let [formEmail, setEmail] = useState(email)
+    let [formPhone ,setPhone] = useState(phone)
+    let [formWeb , setWeb] = useState(web)
+  
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     let onSubmit = (data)=>{
-        console.log(data.formName);
-        name = data.formName
-        console.log(name);
-        
+        console.log(data.formEmail);
+        setName(data.formName)
+        setEmail(data.formEmail)
+        setPhone(data.formName)
+        setWeb(data.formWeb)
+
+       
         toggleForm()
     }
   
@@ -41,28 +48,28 @@ const Cards = (props) => {
 
       {/* Card Content */}
       <div className="p-4 flex-1">
-        <h1 className="text-xl font-semibold text-gray-800">{name}</h1>
+        <h1 className="text-xl font-semibold text-gray-800">{formName}</h1>
         <p className="text-sm text-gray-600 flex items-center space-x-2">
           <MdEmail />
-          <span>{email}</span>
+          <span>{formEmail}</span>
         </p>
         <p className="text-sm text-gray-600 flex items-center space-x-2">
           <IoCall />
-          <span>{phone}</span>
+          <span>{formPhone}</span>
         </p>
         <p className="text-sm text-gray-600 flex items-center space-x-2">
           <SiJsonwebtokens />
-          <span>https://{web}</span>
+          <span>https://{formWeb}</span>
         </p>
       </div>
 
       {/* Card Actions */}
       <div className="p-3 flex justify-between bg-gray-200">
-        <IoIosHeartEmpty
+        <FaHeart
           onClick={(e) => {
-            e.target.style.background = e.target.style.background === "red" ? "none" : "red";
+            e.target.style.color = (e.target.style.color === "black") ? "red" : "black";
           }}
-          className="text-red-500 hover:text-red-700 cursor-pointer text-2xl"
+          className="cursor-pointer text-2xl text-black"
         />
         <CiEdit
           onClick={toggleForm}
@@ -159,7 +166,7 @@ const Cards = (props) => {
           </div>
         </div>
       </form>
-               )}
+              )}
     </div>
             
   );
